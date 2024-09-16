@@ -11,6 +11,8 @@ echo 2) Beállítások Betöltése
 echo 3) Beállítások Mentése
 set /p input=.%BS%Írj be egy számot, és nyomd meg az entert! ^> 
 if /I %input% EQU 1 start startmc.bat
+if /I %input% EQU 2 start 
+if /I %input% EQU 3 start 
 timeout 1 >nul
 cls
 exit
