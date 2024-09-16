@@ -35,6 +35,7 @@ echo. > "%PRISM_FILE%"
 
 :start
 echo Starting the application or process...
+start %FILE_DIR% prismlauncher.exe
 
 
 pause
