@@ -1,0 +1,28 @@
+@echo off
+chcp 65001 >nul
+title Hordozható Minecraft - By Kecske
+color 3
+call :banner
+:menu
+cd files
+for /f %%A in ('"prompt $H &echo on &for %%B in (1) do rem"') do set BS=%%A
+echo 1) Minecraft Megnyitása
+echo 2) Beállítások Betöltése
+echo 3) Beállítások Mentése
+set /p input=.%BS%Írj be egy számot, és nyomd meg az entert! ^> 
+if /I %input% EQU 1 start startmc.bat
+timeout 1 >nul
+cls
+exit
+
+:banner
+echo.
+echo.
+echo                        ███╗   ███╗██╗███╗   ██╗███████╗ ██████╗██████╗  █████╗ ███████╗████████╗
+echo                        ████╗ ████║██║████╗  ██║██╔════╝██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝
+echo                        ██╔████╔██║██║██╔██╗ ██║█████╗  ██║     ██████╔╝███████║█████╗     ██║   
+echo                        ██║╚██╔╝██║██║██║╚██╗██║██╔══╝  ██║     ██╔══██╗██╔══██║██╔══╝     ██║   
+echo                        ██║ ╚═╝ ██║██║██║ ╚████║███████╗╚██████╗██║  ██║██║  ██║██║        ██║   
+echo                        ╚═╝     ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   
+echo.                                                                
+echo.
