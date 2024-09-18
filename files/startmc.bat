@@ -64,6 +64,11 @@ PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force"
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force"
 
+:javarename
+ren "C:\Users\Public\Documents\jdk8u422-b05-jre" "java8"
+ren "C:\Users\Public\Documents\jdk-17.0.12+7-jre" "java17"
+ren "C:\Users\Public\Documents\jdk-21.0.4+7-jre" "java21"
+
 :javamarker
 echo Creating Java setup marker file...
 echo. > "%JAVA_MARKER%"
