@@ -6,10 +6,10 @@ setlocal
 set "PRISM_FILE=prism84"
 set "DOWNLOAD_URL=https://github.com/PrismLauncher/PrismLauncher/releases/download/8.4/PrismLauncher-Windows-MinGW-w64-Portable-8.4.zip"
 set "ZIP_FILE=PrismLauncher.zip"
-set "PRISM_FOLDER=prism"
+set "PRISM_FOLDER=%cd%/prism"
 
 set "DOCS_DIR=C:/Users/Public/Documents"
-set "JAVA_MARKER=%DOCS_DIR%/javaV1"
+set "JAVA_MARKER=C:/Users/Public/Documents/javaV1"
 set "JAVA_URL1=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK8U-jre_x64_windows_hotspot_8u422b05.zip"
 set "JAVA_URL2=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK17U-jre_x64_windows_hotspot_17.0.12_7.zip"
 set "JAVA_URL3=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK21U-jre_x64_windows_hotspot_21.0.4_7.zip"
@@ -37,6 +37,10 @@ PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_
 :: Create the marker file "prism84"
 echo Creating marker file...
 echo. > "%PRISM_FILE%"
+
+copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
+copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
+
 
 :start
 :: Check for javaV1 marker file
