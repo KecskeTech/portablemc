@@ -74,7 +74,7 @@ echo Creating Java setup marker file...
 echo. > "%JAVA_MARKER%"
 
 :start
-launch %cd%/prism /MAX prismlauncher.exe
+launch %cd%/prism prismlauncher.exe
 :: Add any further launch steps here
 
 pause
