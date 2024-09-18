@@ -1,42 +1,70 @@
 @echo off
-chcp 65001 >nul
+chcp 65001
 setlocal
 
 :: Set paths
-set "FILE_DIR=%cd%\files"
-set "PRISM_FILE=%FILE_DIR%\prism84"
+set "PRISM_FILE=prism84"
 set "DOWNLOAD_URL=https://github.com/PrismLauncher/PrismLauncher/releases/download/8.4/PrismLauncher-Windows-MinGW-w64-Portable-8.4.zip"
-set "ZIP_FILE=%FILE_DIR%\PrismLauncher.zip"
-set "PRISM_FOLDER=%FILE_DIR%\prism"
+set "ZIP_FILE=PrismLauncher.zip"
+set "PRISM_FOLDER=prism"
+
+set "DOCS_DIR=C:/Users/Public/Documents"
+set "JAVA_MARKER=%DOCS_DIR%/javaV1"
+set "JAVA_URL1=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK8U-jre_x64_windows_hotspot_8u422b05.zip"
+set "JAVA_URL2=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK17U-jre_x64_windows_hotspot_17.0.12_7.zip"
+set "JAVA_URL3=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK21U-jre_x64_windows_hotspot_21.0.4_7.zip"
+
+set "JAVA_ZIP1=OpenJDK8U.zip"
+set "JAVA_ZIP2=OpenJDK17U.zip"
+set "JAVA_ZIP3=OpenJDK21U.zip"
 
 :: Check if prism84 file exists
 if exist "%PRISM_FILE%" (
-    echo A prism launcher már le van töltve, indítás
+    echo File 'prism84' found. Skipping download...
     goto start
 ) else (
-    echo A Prism Launcher nincs még letöltve. Telepítés indul...
-)
-
-:: Create files directory if not exists
-if not exist "%FILE_DIR%" (
-    mkdir "%FILE_DIR%"
+    echo File 'prism84' not found. Proceeding with download...
 )
 
 :: Download the file
-echo Letöltés...
+echo Downloading file...
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%"
 
-:: Unzip the downloaded file
-echo Prism Launcher kicsomagolása...
-powershell -command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%'"
+:: Unzip the downloaded file using PowerShell
+echo Unzipping contents...
+PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force"
 
 :: Create the marker file "prism84"
 echo Creating marker file...
 echo. > "%PRISM_FILE%"
 
 :start
-echo Starting the application or process...
-start %FILE_DIR% /MAX prismlauncher.exe
+:: Check for javaV1 marker file
+if exist "%JAVA_MARKER%" (
+    echo Java environment already set up. Skipping to launch...
+    goto launch
+) else (
+    echo Java environment not found. Proceeding with download...
+)
 
+:: Download the Java zip packages
+echo Downloading Java JRE packages...
+bitsadmin /transfer "JavaDownload1" "%JAVA_URL1%" "%JAVA_ZIP1%"
+bitsadmin /transfer "JavaDownload2" "%JAVA_URL2%" "%JAVA_ZIP2%"
+bitsadmin /transfer "JavaDownload3" "%JAVA_URL3%" "%JAVA_ZIP3%"
+
+:: Extract the downloaded Java zip files using PowerShell
+echo Extracting Java JRE packages...
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force"
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force"
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force"
+
+:: Create the marker file "javaV1"
+echo Creating Java setup marker file...
+echo. > "%JAVA_MARKER%"
+
+:launch
+echo Launching application...
+:: Add any further launch steps here
 
 pause
