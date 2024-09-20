@@ -1,11 +1,10 @@
 @echo off
-chcp 65001
 setlocal
 
 :variables
 set "PRISM_FILE=prism84"
 set "DOWNLOAD_URL=https://github.com/PrismLauncher/PrismLauncher/releases/download/8.4/PrismLauncher-Windows-MinGW-w64-Portable-8.4.zip"
-set "ZIP_FILE=PrismLauncher.zip"
+set "ZIP_FILE=%cd%/PrismLauncher.zip"
 set "PRISM_FOLDER=%cd%/prism"
 
 set "DOCS_DIR=C:/Users/Public/Documents"
@@ -14,9 +13,9 @@ set "JAVA_URL1=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJD
 set "JAVA_URL2=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK17U-jre_x64_windows_hotspot_17.0.12_7.zip"
 set "JAVA_URL3=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJDK21U-jre_x64_windows_hotspot_21.0.4_7.zip"
 
-set "JAVA_ZIP1=OpenJDK8U.zip"
-set "JAVA_ZIP2=OpenJDK17U.zip"
-set "JAVA_ZIP3=OpenJDK21U.zip"
+set "JAVA_ZIP1=%cd%/OpenJDK8U.zip"
+set "JAVA_ZIP2=%cd%/OpenJDK17U.zip"
+set "JAVA_ZIP3=%cd%/OpenJDK21U.zip"
 
 :checkprisminstalled
 if exist "%PRISM_FILE%" (
