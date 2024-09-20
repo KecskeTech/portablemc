@@ -27,7 +27,7 @@ if exist "%PRISM_FILE%" (
 pause
 :downloadprismzip
 echo Downloading file...
-bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%"
+bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
 :unzipprismzip
 echo Unzipping contents...
