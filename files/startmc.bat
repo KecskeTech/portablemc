@@ -20,7 +20,7 @@ set "JAVA_ZIP3=%cd%/OpenJDK21U.zip"
 :checkprisminstalled
 if exist "%PRISM_FILE%" (
     echo File 'prism84' found. Skipping download...
-    goto start
+    goto java
 ) else (
     echo File 'prism84' not found. Proceeding with download...
 )
