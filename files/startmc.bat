@@ -46,7 +46,7 @@ pause
 :: Check for javaV1 marker file
 if exist "%JAVA_MARKER%" (
     echo Java environment already set up. Skipping to launch...
-    goto launch
+    goto start
 ) else (
     echo Java environment not found. Proceeding with download...
 )
