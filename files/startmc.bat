@@ -16,7 +16,7 @@ set "JAVA_URL3=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJD
 set "JAVA_ZIP1=%cd%/OpenJDK8U.zip"
 set "JAVA_ZIP2=%cd%/OpenJDK17U.zip"
 set "JAVA_ZIP3=%cd%/OpenJDK21U.zip"
-
+pause
 :checkprisminstalled
 if exist "%PRISM_FILE%" (
     echo File 'prism84' found. Skipping download...
@@ -24,23 +24,23 @@ if exist "%PRISM_FILE%" (
 ) else (
     echo File 'prism84' not found. Proceeding with download...
 )
-
+pause
 :downloadprismzip
 echo Downloading file...
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%"
-
+pause
 :unzipprismzip
 echo Unzipping contents...
 PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force"
-
+pause
 :createmarker
 echo Creating marker file...
 echo. > "%PRISM_FILE%"
-
+pause
 :copyconfig
 copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
-
+pause
 
 :java
 :: Check for javaV1 marker file
@@ -50,28 +50,28 @@ if exist "%JAVA_MARKER%" (
 ) else (
     echo Java environment not found. Proceeding with download...
 )
-
+pause
 :javadl
 echo Downloading Java JRE packages...
 bitsadmin /transfer "JavaDownload1" "%JAVA_URL1%" "%JAVA_ZIP1%"
 bitsadmin /transfer "JavaDownload2" "%JAVA_URL2%" "%JAVA_ZIP2%"
 bitsadmin /transfer "JavaDownload3" "%JAVA_URL3%" "%JAVA_ZIP3%"
-
+pause
 :javaextract
 echo Extracting Java JRE packages...
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force"
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force"
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force"
-
+pause
 :javarename
 ren "C:\Users\Public\Documents\jdk8u422-b05-jre" "java8"
 ren "C:\Users\Public\Documents\jdk-17.0.12+7-jre" "java17"
 ren "C:\Users\Public\Documents\jdk-21.0.4+7-jre" "java21"
-
+pause
 :javamarker
 echo Creating Java setup marker file...
 echo. > "%JAVA_MARKER%"
-
+pause
 :start
 launch %cd%/prism prismlauncher.exe
 :: Add any further launch steps here
