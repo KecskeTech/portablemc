@@ -54,9 +54,9 @@ if exist "%JAVA_MARKER%" (
 pause
 :javainstall
 echo Java letöltése...
-bitsadmin /transfer "Java8dl" "%JAVA_URL1%" "%JAVA_ZIP1%" >nul
-bitsadmin /transfer "Java17dl" "%JAVA_URL2%" "%JAVA_ZIP2%" >nul
-bitsadmin /transfer "Java21dl" "%JAVA_URL3%" "%JAVA_ZIP3%" >nul
+Invoke-WebRequest -Uri "%JAVA_URL1%" -OutFile "%JAVA_ZIP1%"
+Invoke-WebRequest -Uri "%JAVA_URL2%" -OutFile "%JAVA_ZIP2%"
+Invoke-WebRequest -Uri "%JAVA_URL3%" -OutFile "%JAVA_ZIP3%"
 timeout 1 >nul
 
 echo Java kicsomagolása...
