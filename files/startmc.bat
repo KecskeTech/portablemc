@@ -55,9 +55,9 @@ if exist "%JAVA_MARKER%" (
 pause
 :javainstall
 echo Java letöltése...
-Invoke-WebRequest -Uri "%JAVA_URL1%" -OutFile "%JAVA_ZIP1%" >nul
-Invoke-WebRequest -Uri "%JAVA_URL2%" -OutFile "%JAVA_ZIP2%" >nul
-Invoke-WebRequest -Uri "%JAVA_URL3%" -OutFile "%JAVA_ZIP3%" >nul
+Invoke-WebRequest -Uri '%JAVA_URL1%' -OutFile '%JAVA_ZIP1%' >nul
+Invoke-WebRequest -Uri '%JAVA_URL2%' -OutFile '%JAVA_ZIP2%' >nul
+Invoke-WebRequest -Uri '%JAVA_URL3%' -OutFile '%JAVA_ZIP3%' >nul
 timeout 1 >nul
 
 echo Java kicsomagolása...
