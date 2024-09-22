@@ -33,7 +33,7 @@ bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
 :unzipprismzip
 echo Prism Launcher kicsomagolása
-start "" PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
+start "Kicsomagolás" /MIN PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
 pause
 :createmarker
 echo Jelölő file létrehozása...
@@ -61,9 +61,9 @@ bitsadmin /transfer "Java21dl" "%JAVA_URL3%" "%JAVA_ZIP3%" >nul
 timeout 1 >nul
 
 echo Java kicsomagolása...
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force" >nul
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force" >nul
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force" >nul
+start "Kicsomagolás" /MIN PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force" >nul
+start "Kicsomagolás" /MIN PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force" >nul
+start "Kicsomagolás" /MIN PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force" >nul
 timeout 1 >nul
 
 ren "C:\Users\Public\Documents\jdk8u422-b05-jre" "java8"
