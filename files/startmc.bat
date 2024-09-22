@@ -77,7 +77,7 @@ echo Indítás 3mp múlva!...
 timeout 3 >nul
 
 :start
-start %cd%/prism/prismlauncher.exe
+start /b "" %cd%/prism/prismlauncher.exe
 :: Add any further launch steps here
 
 pause
