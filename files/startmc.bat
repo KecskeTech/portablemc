@@ -26,17 +26,17 @@ if exist "%PRISM_FILE%" (
 ) else (
     echo A Prism Launcher még nincs letöltve. Telepítés indítása...
 )
-
+pause
 :downloadprismzip
 echo Prism Launcher letöltése
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
-
+pause
 :unzipprismzip
 echo Prism Launcher kicsomagolása
 PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
-
+pause
 :createmarker
-echo Jelölő file létrehozása
+echo Jelölő file létrehozása...
 echo. > "%PRISM_FILE%"
 
 :copyconfig
@@ -55,20 +55,9 @@ if exist "%JAVA_MARKER%" (
 pause
 :javainstall
 echo Java letöltése...
-bitsadmin /create /download Java8dl
-bitsadmin /addfile Java8dl "%JAVA_URL1%" "JAVA_ZIP1"
-bitsadmin /setpriority Java8dl FOREGROUND
-bitsadmin /resume Java8dl
-
-bitsadmin /create /download Java17dl
-bitsadmin /addfile Java17dl "%JAVA_URL2%" "JAVA_ZIP2"
-bitsadmin /setpriority Java17dl FOREGROUND
-bitsadmin /resume Java17dl
-
-bitsadmin /create /download Java21dl
-bitsadmin /addfile Java21dl "%JAVA_URL3%" "JAVA_ZIP3"
-bitsadmin /setpriority Java21dl FOREGROUND
-bitsadmin /resume Java21dl
+bitsadmin /transfer "Java8dl" "%JAVA_URL1%" "%JAVA_ZIP1%" >nul
+bitsadmin /transfer "Java17dl" "%JAVA_URL2%" "%JAVA_ZIP2%" >nul
+bitsadmin /transfer "Java21dl" "%JAVA_URL3%" "%JAVA_ZIP3%" >nul
 timeout 1 >nul
 
 echo Java kicsomagolása...
