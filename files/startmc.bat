@@ -1,5 +1,6 @@
 @echo off
 color 08
+chcp 65001
 setlocal
 
 :variables
@@ -17,27 +18,27 @@ set "JAVA_URL3=https://github.com/KecskeTech/java-pmc/raw/refs/heads/main/OpenJD
 set "JAVA_ZIP1=%cd%/OpenJDK8U.zip"
 set "JAVA_ZIP2=%cd%/OpenJDK17U.zip"
 set "JAVA_ZIP3=%cd%/OpenJDK21U.zip"
-pause
-:checkprisminstalled
+
+:checkprisminstall
 if exist "%PRISM_FILE%" (
-    echo A Prism launcher már telepítve van, a java-t ellenőrizzük...
+    echo A Prism launcher már telepítve van, a Java-t ellenőrizzük...
     goto java
 ) else (
     echo A Prism Launcher még nincs letöltve. Telepítés indítása...
 )
-pause
+
 :downloadprismzip
 echo Prism Launcher letöltése
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
-pause
+
 :unzipprismzip
 echo Prism Launcher kicsomagolása
 PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
-pause
+
 :createmarker
 echo Jelölő file létrehozása
 echo. > "%PRISM_FILE%"
-pause
+
 :copyconfig
 copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
@@ -54,9 +55,9 @@ if exist "%JAVA_MARKER%" (
 pause
 :javainstall
 echo Java letöltése...
-Invoke-WebRequest -Uri "%JAVA_URL1%" -OutFile "%JAVA_ZIP1%"
-Invoke-WebRequest -Uri "%JAVA_URL2%" -OutFile "%JAVA_ZIP2%"
-Invoke-WebRequest -Uri "%JAVA_URL3%" -OutFile "%JAVA_ZIP3%"
+Invoke-WebRequest -Uri "%JAVA_URL1%" -OutFile "%JAVA_ZIP1%" >nul
+Invoke-WebRequest -Uri "%JAVA_URL2%" -OutFile "%JAVA_ZIP2%" >nul
+Invoke-WebRequest -Uri "%JAVA_URL3%" -OutFile "%JAVA_ZIP3%" >nul
 timeout 1 >nul
 
 echo Java kicsomagolása...
@@ -76,7 +77,7 @@ Indítás 3mp múlva!...
 timeout 3 >nul
 
 :start
-start %cd%/prism prismlauncher.exe
+start %cd%/prism/prismlauncher.exe
 :: Add any further launch steps here
 
 pause
