@@ -28,7 +28,7 @@ if exist "%PRISM_FILE%" (
 )
 pause
 :downloadprismzip
-echo Prism Launcher letöltése
+echo Prism Launcher letöltése...
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
 :unzipprismzip
