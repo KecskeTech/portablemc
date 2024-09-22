@@ -54,15 +54,15 @@ if exist "%JAVA_MARKER%" (
 pause
 :javainstall
 echo Java letöltése...
-bitsadmin /transfer "JavaDownload1" "%JAVA_URL1%" "%JAVA_ZIP1%"
-bitsadmin /transfer "JavaDownload2" "%JAVA_URL2%" "%JAVA_ZIP2%"
-bitsadmin /transfer "JavaDownload3" "%JAVA_URL3%" "%JAVA_ZIP3%"
+bitsadmin /transfer "Java8dl" "%JAVA_URL1%" "%JAVA_ZIP1%" >nul
+bitsadmin /transfer "Java17dl" "%JAVA_URL2%" "%JAVA_ZIP2%" >nul
+bitsadmin /transfer "Java21dl" "%JAVA_URL3%" "%JAVA_ZIP3%" >nul
 timeout 1 >nul
 
 echo Java kicsomagolása...
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force"
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force"
-PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force"
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force" >nul
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force" >nul
+PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force" >nul
 timeout 1 >nul
 
 ren "C:\Users\Public\Documents\jdk8u422-b05-jre" "java8"
