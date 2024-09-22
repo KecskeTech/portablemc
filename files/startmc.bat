@@ -1,4 +1,5 @@
 @echo off
+color 08
 setlocal
 
 :variables
@@ -19,22 +20,22 @@ set "JAVA_ZIP3=%cd%/OpenJDK21U.zip"
 pause
 :checkprisminstalled
 if exist "%PRISM_FILE%" (
-    echo File 'prism84' found. Skipping download...
+    echo A Prism launcher már telepítve van, a java-t ellenőrizzük...
     goto java
 ) else (
-    echo File 'prism84' not found. Proceeding with download...
+    echo A Prism Launcher még nincs letöltve. Telepítés indítása...
 )
 pause
 :downloadprismzip
-echo Downloading file...
+echo Prism Launcher letöltése
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
 :unzipprismzip
-echo Unzipping contents...
-PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force"
+echo Prism Launcher kicsomagolása
+PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
 pause
 :createmarker
-echo Creating marker file...
+echo Jelölő file létrehozása
 echo. > "%PRISM_FILE%"
 pause
 :copyconfig
@@ -45,35 +46,37 @@ pause
 :java
 :: Check for javaV1 marker file
 if exist "%JAVA_MARKER%" (
-    echo Java environment already set up. Skipping to launch...
+    echo A java már át van másolva... launcher indítása
     goto start
 ) else (
-    echo Java environment not found. Proceeding with download...
+    echo A java még nincs telepítve, indul a letöltés...
 )
 pause
-:javadl
-echo Downloading Java JRE packages...
+:javainstall
+echo Java letöltése...
 bitsadmin /transfer "JavaDownload1" "%JAVA_URL1%" "%JAVA_ZIP1%"
 bitsadmin /transfer "JavaDownload2" "%JAVA_URL2%" "%JAVA_ZIP2%"
 bitsadmin /transfer "JavaDownload3" "%JAVA_URL3%" "%JAVA_ZIP3%"
-pause
-:javaextract
-echo Extracting Java JRE packages...
+timeout 1 >nul
+
+echo Java kicsomagolása...
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP1%' -DestinationPath '%DOCS_DIR%' -Force"
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP2%' -DestinationPath '%DOCS_DIR%' -Force"
 PowerShell -Command "Expand-Archive -Path '%JAVA_ZIP3%' -DestinationPath '%DOCS_DIR%' -Force"
-pause
-:javarename
+timeout 1 >nul
+
 ren "C:\Users\Public\Documents\jdk8u422-b05-jre" "java8"
 ren "C:\Users\Public\Documents\jdk-17.0.12+7-jre" "java17"
 ren "C:\Users\Public\Documents\jdk-21.0.4+7-jre" "java21"
-pause
-:javamarker
-echo Creating Java setup marker file...
+
+echo Java jelölő létrehozása...
 echo. > "%JAVA_MARKER%"
-pause
+
+Indítás 3mp múlva!...
+timeout 3 >nul
+
 :start
-launch %cd%/prism prismlauncher.exe
+start %cd%/prism prismlauncher.exe
 :: Add any further launch steps here
 
 pause
