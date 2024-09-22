@@ -1,6 +1,6 @@
 @echo off
 color 08
-chcp 65001
+chcp 65001 >nul
 setlocal
 
 :variables
