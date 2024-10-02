@@ -67,18 +67,21 @@ if not exist "%config_path%" (
 :: Get total physical memory in bytes (no division required)
 for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set RAM_BYTES=%%A
 
-:: Set memory value based on RAM size in bytes (use "greater or equal")
+:: Convert RAM_BYTES to MB (by dividing by 1048576) to avoid overflow in comparisons
+set /A RAM_MB=%RAM_BYTES%/1048576
+
+:: Set memory value based on RAM size in MB (use "greater or equal")
 set RAM_VALUE=0
 
-if %RAM_BYTES% geq 14000000000 (
+if %RAM_MB% geq 13000 (
     set RAM_VALUE=8192
-) else if %RAM_BYTES% geq 11000000000 (
+) else if %RAM_MB% geq 10000 (
     set RAM_VALUE=6000
-) else if %RAM_BYTES% geq 7000000000 (
+) else if %RAM_MB% geq 6500 (
     set RAM_VALUE=4096
-) else if %RAM_BYTES% geq 6000000000 (
+) else if %RAM_MB% geq 5500 (
     set RAM_VALUE=3000
-) else if %RAM_BYTES% geq 3000000000 (
+) else if %RAM_MB% geq 3000 (
     set RAM_VALUE=2048
 )
 
@@ -102,7 +105,6 @@ if %RAM_VALUE%==0 (
 move /y "%config_path%.tmp" "%config_path%"
 
 echo Configuration updated with MaxMemAlloc=%RAM_VALUE%
-
 
 pause
 
