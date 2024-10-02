@@ -9,6 +9,7 @@ set "PRISM_FILE=prism84"
 set "DOWNLOAD_URL=https://github.com/PrismLauncher/PrismLauncher/releases/download/8.4/PrismLauncher-Windows-MinGW-w64-Portable-8.4.zip"
 set "ZIP_FILE=%cd%/PrismLauncher.zip"
 set "PRISM_FOLDER=%cd%/prism"
+set "PRISM_FOLDER2=/prism"
 
 set "DOCS_DIR=C:/Users/Public/Documents"
 set "JAVA_MARKER=C:/Users/Public/Documents/javaV1"
