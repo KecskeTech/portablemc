@@ -12,7 +12,7 @@ echo 2) Beállítások Betöltése
 echo 3) Beállítások Mentése
 set /p input=.%BS%Írj be egy számot, és nyomd meg az entert! ^> 
 if /I %input% EQU 1 (
-    powershell -Command "Invoke-WebRequest -Uri 'https://github.com/KecskeTech/portablemc/raw/refs/heads/main/files/startmc.bat' -OutFile '%cd%/startmc.bat'" >nul
+    start /MIN /WAIT "" powershell -Command "Invoke-WebRequest -Uri 'https://github.com/KecskeTech/portablemc/raw/refs/heads/main/files/startmc.bat' -OutFile '%cd%/startmc.bat'" >nul
     start %cd%/startmc.bat
 )
 if /I %input% EQU 2 start 
