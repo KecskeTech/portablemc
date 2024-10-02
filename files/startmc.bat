@@ -1,7 +1,7 @@
 @echo off
 color 08
 chcp 65001 >nul
-title Minecraft Telepítő / Megnyitó - By Kecske
+title Hordozható Minecraft - By Kecske
 setlocal
 
 :variables
