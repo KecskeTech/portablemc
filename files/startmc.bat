@@ -48,8 +48,8 @@ echo Config másolása
 copy /Y "%cd%/prismlauncher.cfg" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.json" "%PRISM_FOLDER%"
 
-:: Get total physical memory in MB directly
-for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set /A RAM_MB=%%A/1048576
+:: Get total physical memory in bytes (no division required)
+for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set RAM_BYTES=%%A
 
 :: Check for the prismlauncher.cfg file
 set "config_path=%cd%\prism\prismlauncher.cfg"
@@ -58,16 +58,16 @@ if not exist "%config_path%" (
     exit /b
 )
 
-:: Set memory value based on RAM size
-if %RAM_MB% gtr 13000 (
+:: Set memory value based on RAM size in bytes
+if %RAM_BYTES% gtr 14000000000 (
     set RAM_VALUE=8192
-) else if %RAM_MB% gtr 10000 (
+) else if %RAM_BYTES% gtr 11000000000 (
     set RAM_VALUE=6000
-) else if %RAM_MB% gtr 6500 (
+) else if %RAM_BYTES% gtr 7000000000 (
     set RAM_VALUE=4096
-) else if %RAM_MB% gtr 5500 (
+) else if %RAM_BYTES% gtr 6000000000 (
     set RAM_VALUE=3000
-) else if %RAM_MB% gtr 3000 (
+) else if %RAM_BYTES% gtr 3000000000 (
     set RAM_VALUE=2048
 ) else (
     echo Not enough RAM to meet the conditions.
@@ -88,7 +88,6 @@ if %RAM_MB% gtr 13000 (
 move /y "%config_path%.tmp" "%config_path%"
 
 echo Configuration updated with MaxMemAlloc=%RAM_VALUE%
-
 
 pause
 
