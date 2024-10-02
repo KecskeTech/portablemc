@@ -70,7 +70,7 @@ if %RAM_BYTES% gtr 14000000000 (
     set RAM_VALUE=4096
 ) else if %RAM_BYTES% gtr 6000000000 (
     set RAM_VALUE=3000
-) else if %RAM_BYTES% gtr 2900000000 (
+) else if %RAM_BYTES% gtr 2800000000 (
     set RAM_VALUE=2048
 ) else (
     echo Not enough RAM to meet the conditions.
