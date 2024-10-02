@@ -57,6 +57,8 @@ set "config_path=%cd%\prism\prismlauncher.cfg"
 if not exist "%config_path%" (
     echo Configuration file not found!
     exit /b
+) else (
+    echo Configuration file found!
 )
 
 :: Set memory value based on RAM size in bytes
