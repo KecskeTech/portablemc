@@ -28,14 +28,17 @@ if exist "%PRISM_FILE%" (
     echo A Prism Launcher még nincs letöltve. Telepítés indítása...
 )
 pause
+
 :downloadprism
 echo Prism Launcher letöltése...
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
+
 :unzipprism
 echo Prism Launcher kicsomagolása
 start /MIN /WAIT "" PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
 pause
+
 :createmarker
 echo Jelölő file létrehozása...
 echo. > "%PRISM_FILE%"
@@ -44,6 +47,48 @@ echo. > "%PRISM_FILE%"
 echo Config másolása
 copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
+:: Edit maxram based on system ram
+:: Get total physical memory in MB
+for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set /A RAM_MB=%%A/1024/1024
+
+:: Check for the prismlauncher.cfg file
+set "config_path=%cd%\prism\prismlauncher.cfg"
+if not exist "%config_path%" (
+    echo Nem találtuk meg a configot!
+    timeout 3 >nul
+    exit /b
+)
+
+:: Set memory value based on RAM size
+if %RAM_MB% gtr 13000 (
+    set RAM_VALUE=8192
+) else if %RAM_MB% gtr 10000 (
+    set RAM_VALUE=6000
+) else if %RAM_MB% gtr 6500 (
+    set RAM_VALUE=4096
+) else if %RAM_MB% gtr 5500 (
+    set RAM_VALUE=3000
+) else if %RAM_MB% gtr 3000 (
+    set RAM_VALUE=2048
+) else (
+    echo Not enough RAM to meet the conditions.
+    exit /b
+)
+
+:: Replace the MaxMemAlloc value in prismlauncher.cfg
+(for /f "delims=" %%i in ('type "%config_path%"') do (
+    echo %%i | findstr /r "^MaxMemAlloc=" >nul
+    if errorlevel 1 (
+        echo %%i
+    ) else (
+        echo MaxMemAlloc=%RAM_VALUE%
+    )
+)) > "%config_path%.tmp"
+
+:: Replace the old config with the new one
+move /y "%config_path%.tmp" "%config_path%"
+
+echo Configuration updated with MaxMemAlloc=%RAM_VALUE%
 pause
 
 :java
