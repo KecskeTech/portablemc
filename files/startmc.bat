@@ -45,8 +45,8 @@ echo. > "%PRISM_FILE%"
 
 :copyconfig
 echo Config másolása
-copy /Y "%cd%/prismlauncher.cfg" "%PRISM_FOLDER%"
-copy /Y "%cd%/accounts.json" "%PRISM_FOLDER%"
+copy /Y "prismlauncher.cfg" "%PRISM_FOLDER%"
+copy /Y "accounts.json" "%PRISM_FOLDER%"
 
 :: Get total physical memory in bytes (no division required)
 for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set RAM_BYTES=%%A
