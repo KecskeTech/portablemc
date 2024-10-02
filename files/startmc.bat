@@ -48,9 +48,8 @@ echo Config másolása
 copy /Y "%cd%/prismlauncher.cfg" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.json" "%PRISM_FOLDER%"
 
-:: Get total physical memory in KB and convert it to MB safely
-for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set RAM_KB=%%A
-set /A RAM_MB=%RAM_KB%/1024/1024
+:: Get total physical memory in MB directly
+for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set /A RAM_MB=%%A/1048576
 
 :: Check for the prismlauncher.cfg file
 set "config_path=%cd%\prism\prismlauncher.cfg"
@@ -89,6 +88,7 @@ if %RAM_MB% gtr 13000 (
 move /y "%config_path%.tmp" "%config_path%"
 
 echo Configuration updated with MaxMemAlloc=%RAM_VALUE%
+
 
 pause
 
