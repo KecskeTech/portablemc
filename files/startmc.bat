@@ -49,30 +49,41 @@ echo Config másolása
 copy /Y "prismlauncher.cfg" "%PRISM_FOLDER%"
 copy /Y "accounts.json" "%PRISM_FOLDER%"
 
+:: Set the configuration file path
+set "config_path=%cd%\prism\prismlauncher.cfg"
+
+:: Check if the prism directory exists
+if not exist "%cd%\prism\" (
+    echo Prism directory not found!
+    exit /b
+)
+
+:: Check for the prismlauncher.cfg file
+if not exist "%config_path%" (
+    echo Configuration file not found at %config_path%!
+    exit /b
+)
+
 :: Get total physical memory in bytes (no division required)
 for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set RAM_BYTES=%%A
 
-:: Check for the prismlauncher.cfg file
-set "config_path=%cd%\prism\prismlauncher.cfg"
-if not exist "%config_path%" (
-    echo Configuration file not found!
-    exit /b
-) else (
-    echo Configuration file found!
+:: Set memory value based on RAM size in bytes (use "greater or equal")
+set RAM_VALUE=0
+
+if %RAM_BYTES% geq 14000000000 (
+    set RAM_VALUE=8192
+) else if %RAM_BYTES% geq 11000000000 (
+    set RAM_VALUE=6000
+) else if %RAM_BYTES% geq 7000000000 (
+    set RAM_VALUE=4096
+) else if %RAM_BYTES% geq 6000000000 (
+    set RAM_VALUE=3000
+) else if %RAM_BYTES% geq 3000000000 (
+    set RAM_VALUE=2048
 )
 
-:: Set memory value based on RAM size in bytes
-if %RAM_BYTES% gtr 14000000000 (
-    set RAM_VALUE=8192
-) else if %RAM_BYTES% gtr 11000000000 (
-    set RAM_VALUE=6000
-) else if %RAM_BYTES% gtr 7000000000 (
-    set RAM_VALUE=4096
-) else if %RAM_BYTES% gtr 6000000000 (
-    set RAM_VALUE=3000
-) else if %RAM_BYTES% gtr 2800000000 (
-    set RAM_VALUE=2048
-) else (
+:: If no valid RAM condition is met, exit the script
+if %RAM_VALUE%==0 (
     echo Not enough RAM to meet the conditions.
     exit /b
 )
@@ -91,6 +102,7 @@ if %RAM_BYTES% gtr 14000000000 (
 move /y "%config_path%.tmp" "%config_path%"
 
 echo Configuration updated with MaxMemAlloc=%RAM_VALUE%
+
 
 pause
 
