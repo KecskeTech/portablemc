@@ -1,6 +1,7 @@
 @echo off
 color 08
 chcp 65001 >nul
+title Minecraft Telepítő / Megnyitó - By Kecske
 setlocal
 
 :variables
@@ -40,6 +41,7 @@ echo Jelölő file létrehozása...
 echo. > "%PRISM_FILE%"
 
 :copyconfig
+echo Config másolása
 copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
 copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
 pause
