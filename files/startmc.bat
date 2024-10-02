@@ -28,11 +28,11 @@ if exist "%PRISM_FILE%" (
     echo A Prism Launcher még nincs letöltve. Telepítés indítása...
 )
 pause
-:downloadprismzip
+:downloadprism
 echo Prism Launcher letöltése...
 bitsadmin /transfer "PrismLauncherDownload" "%DOWNLOAD_URL%" "%ZIP_FILE%" >nul
 pause
-:unzipprismzip
+:unzipprism
 echo Prism Launcher kicsomagolása
 start /MIN /WAIT "" PowerShell -Command "Expand-Archive -Path '%ZIP_FILE%' -DestinationPath '%PRISM_FOLDER%' -Force" >nul
 pause
