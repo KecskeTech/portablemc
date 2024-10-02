@@ -45,8 +45,8 @@ echo. > "%PRISM_FILE%"
 
 :copyconfig
 echo Config másolása
-copy /Y "%cd%/config.yml" "%PRISM_FOLDER%"
-copy /Y "%cd%/accounts.yml" "%PRISM_FOLDER%"
+copy /Y "%cd%/prismlauncher.cfg" "%PRISM_FOLDER%"
+copy /Y "%cd%/accounts.json" "%PRISM_FOLDER%"
 :: Edit maxram based on system ram
 :: Get total physical memory in MB
 for /f "tokens=2 delims==" %%A in ('wmic computersystem get totalphysicalmemory /value') do set /A RAM_MB=%%A/1024/1024
